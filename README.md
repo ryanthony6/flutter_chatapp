@@ -1,6 +1,7 @@
 # chatapp
 
-A new Flutter project.
+Mata Kuliah Mobile Programming
+Projek ChatApp
 
 ## Getting Started
 

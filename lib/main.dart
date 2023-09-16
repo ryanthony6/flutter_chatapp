@@ -1,3 +1,4 @@
+import 'package:chatapp/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,28 +12,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+    
+      title: 'Nama Aplikasi',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text("Chat App"),
-            
-            backgroundColor: Colors.blueAccent,
+        appBarTheme: AppBarTheme(
+          elevation: 1,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 19,
+            fontWeight: FontWeight.normal
           ),
-          body: Center(
-            child: 
-              TextField(
-                decoration: 
-                  InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Coba ketik',
-                  ),
-              ),
-           ),
-        ),
+          iconTheme: IconThemeData(color: Colors.white),
+          backgroundColor: Color(0xFF75C2F6)
+        )
+      ),
+      home: const HomeScreen()
     );
   }
 }

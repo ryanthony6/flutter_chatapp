@@ -1,4 +1,6 @@
 import 'package:chatapp/screens/home_screen.dart';
+import 'package:chatapp/screens/onboard_screen.dart';
+import 'package:chatapp/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -25,10 +27,10 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.normal
           ),
           iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: Color(0xFF75C2F6)
+          backgroundColor: Color(0xFF376AED)
         )
       ),
-      home: const HomeScreen()
+      home: const splashScreen()
     );
   }
 }

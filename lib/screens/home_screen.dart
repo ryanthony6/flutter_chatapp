@@ -14,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        
         leading: const Icon(CupertinoIcons.home),
         title: const Text('cloudTalk'),
         actions: [

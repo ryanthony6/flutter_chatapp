@@ -44,7 +44,7 @@ with SingleTickerProviderStateMixin{
       
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Color(0xFFf5fff9)
+          color: Color(0xFFFFFFFF)
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

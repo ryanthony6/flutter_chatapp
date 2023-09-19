@@ -1,3 +1,4 @@
+import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/screens/onboard_screen.dart';
 import 'package:chatapp/screens/splash_screen.dart';

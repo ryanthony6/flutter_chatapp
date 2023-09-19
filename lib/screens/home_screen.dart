@@ -1,5 +1,3 @@
-import 'package:chatapp/screens/chat_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,25 +12,37 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
-        leading: const Icon(CupertinoIcons.home),
-        title: const Text('cloudTalk'),
+        backgroundColor: Color(0xFF376AED),
+        title: Text(
+          'Chats',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+          addActionButton()
         ],
       ),
-      floatingActionButton: Padding(
-        padding: EdgeInsets.only(bottom: 10),
-        child: FloatingActionButton(
-            onPressed: () {}, child: Icon(Icons.add_comment_rounded)),
-      ),
-      body: ListView.builder(
-          itemCount: 11,
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) {
-            return const chatCard();
-          }),
     );
   }
+
+
+  Widget addActionButton(){
+    return new Container(
+      child: 
+       IconButton(
+          padding: EdgeInsets.symmetric(horizontal: 28),
+          onPressed: (){},
+          icon: Icon(
+            Icons.search,
+            size: 30,
+          )
+       ),
+      );
+  }
+
+
+
+
+
 }
+
+

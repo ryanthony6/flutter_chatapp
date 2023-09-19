@@ -1,3 +1,4 @@
+import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -55,7 +56,7 @@ class onboardScreen extends StatelessWidget {
         ],
         onDone: (){
           Navigator.pushReplacement(context, MaterialPageRoute(
-            builder: (_) => HomeScreen()
+            builder: (_) => LoginPage()
           ));
 
         },

@@ -1,3 +1,4 @@
+import 'package:chatapp/screens/onboard_screen.dart';
 import 'package:chatapp/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color(0xFF376AED)
         )
       ),
-      home: const splashScreen()
+      home: const onboardScreen()
     );
   }
 }

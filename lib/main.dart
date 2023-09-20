@@ -1,10 +1,11 @@
-import 'package:chatapp/screens/auth/loginPage.dart';
-import 'package:chatapp/screens/home_screen.dart';
-import 'package:chatapp/screens/onboard_screen.dart';
 import 'package:chatapp/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 
 void main() {
+  _initialFirebase();
   runApp(const MyApp());
 }
 
@@ -34,4 +35,10 @@ class MyApp extends StatelessWidget {
       home: const splashScreen()
     );
   }
+}
+
+_initialFirebase() async{
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+  );
 }

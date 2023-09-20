@@ -1,6 +1,9 @@
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/utils/Constant.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:developer';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +15,37 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isPasswordVisible = false;
   bool rememberMe = false;
+
+  _handleGoogleBtn(){
+    _signInWithGoogle().then((user){ 
+      log('User : ${user.user}');
+      log('UserAdditionalInfo : ${user.additionalUserInfo}');
+      Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (_) => HomeScreen()
+      ));
+
+    });
+   
+  }
+
+
+  Future<UserCredential> _signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -159,9 +193,8 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: primaryButtonColor
                   ),
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (_) => HomeScreen()
-                    ));
+                    _handleGoogleBtn();
+                  
                   },
                   child: Text("Login",
                       style: whiteTextStyle.copyWith(fontWeight: bold,fontSize: 15))

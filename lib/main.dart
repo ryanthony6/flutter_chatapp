@@ -1,3 +1,4 @@
+import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/onboard_screen.dart';
 import 'package:chatapp/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,10 @@ import 'firebase_options.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   _initialFirebase();
   runApp(const MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color(0xFF376AED)
         )
       ),
-      home: const onboardScreen()
+      home: const LoginPage()
     );
   }
 }

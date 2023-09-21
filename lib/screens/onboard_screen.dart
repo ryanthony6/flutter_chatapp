@@ -25,7 +25,7 @@ class onboardScreen extends StatelessWidget {
             title: "Simple and easy to use",
             body:
               "As simple as it should be!",
-            image: Image.asset('img/slide1.png',width: 350,),
+            image: Image.asset('img/slide1.png',width: 400,),
             decoration: pageDecoration,
           ),
 
@@ -33,7 +33,7 @@ class onboardScreen extends StatelessWidget {
             title: "Safe and Secure",
             body:
               "Ensure your privacy and confidentiality",
-            image: Image.asset('img/i.png',width: 350),
+            image: Image.asset('img/i.png',width: 400),
             decoration: pageDecoration,
           ),
 
@@ -41,7 +41,7 @@ class onboardScreen extends StatelessWidget {
             title: "Connect yourself with others",
             body:
               "Make new friends around the world!",
-            image: Image.asset('img/slide3.png',width: 350),
+            image: Image.asset('img/slide3.png',width: 400),
             decoration: pageDecoration,
           ),
 
@@ -49,7 +49,7 @@ class onboardScreen extends StatelessWidget {
             title: "Start your journey with us!",
             body:
               "Explore more and learn more about us!",
-            image: Image.asset('img/slide4.png',width: 350),
+            image: Image.asset('img/slide4.png',width: 400),
             decoration: pageDecoration,
           ),
 

@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,15 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA_6now5nKVN5SeUk5kLC0suj62zJt68o4',
-    appId: '1:549613408038:web:1bbf93e1506af86a7fbbe7',
-    messagingSenderId: '549613408038',
-    projectId: 'cloudtalk-fe645',
-    authDomain: 'cloudtalk-fe645.firebaseapp.com',
-    storageBucket: 'cloudtalk-fe645.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDqdkbt0is1SUQg0ERc76wRrmdsciIliH0',
     appId: '1:549613408038:android:c0c97ca8444497177fbbe7',
@@ -66,15 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '549613408038',
     projectId: 'cloudtalk-fe645',
     storageBucket: 'cloudtalk-fe645.appspot.com',
+    androidClientId: '549613408038-r4jjrjmcudhd439oh2gvgshc3nsimhqh.apps.googleusercontent.com',
+    iosClientId: '549613408038-opsrssg559nqv9j68907lpros2u0edh6.apps.googleusercontent.com',
     iosBundleId: 'com.example.chatapp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA9Bgvn0WPWGf5RJL7VvAuhARDlxThcAFM',
-    appId: '1:549613408038:ios:0b45d9b417d5b91f7fbbe7',
-    messagingSenderId: '549613408038',
-    projectId: 'cloudtalk-fe645',
-    storageBucket: 'cloudtalk-fe645.appspot.com',
-    iosBundleId: 'com.example.chatapp.RunnerTests',
   );
 }

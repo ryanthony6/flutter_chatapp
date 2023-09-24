@@ -1,3 +1,5 @@
+import 'package:chatapp/screens/auth/auth_services.dart';
+import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +22,22 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           addActionButton()
         ],
+      ),
+
+      body: Container(
+        child: ElevatedButton(
+          child: Text('PRESS TO LOGOUT'),
+          onPressed: (){
+            auth_service().signOut().then((value){
+              print("signed out bitch");
+              Navigator.pushReplacement(context, MaterialPageRoute(
+              builder: (_) => LoginPage()
+      ));
+
+            });
+            
+          },
+        ),
       ),
     );
   }

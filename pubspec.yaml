@@ -46,6 +46,8 @@ dependencies:
   # fonts
   google_fonts: ^6.0.0
 
+  # shared preferences
+  shared_preferences: ^2.2.1
 
   #  library for intro screen
   introduction_screen: ^3.1.11

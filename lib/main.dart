@@ -1,3 +1,4 @@
+import 'package:chatapp/Home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,29 +11,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text("Chat App"),
-            
-            backgroundColor: Colors.blueAccent,
-          ),
-          body: Center(
-            child: 
-              TextField(
-                decoration: 
-                  InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Coba ketik',
-                  ),
-              ),
-           ),
-        ),
+      home: Home(),
     );
   }
 }

@@ -10,57 +10,118 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final _screens = [
+    ChatsScreen(),
+    ContactsScreen(),
+    ProfileScreen(),
+    SettingsScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Color(0xFF376AED),
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: "Chats",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contact_phone),
+            label: "Contacts",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: "Profile",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: "Settings",
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ChatsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Chats"),
+        backgroundColor: Color(0xFF376AED),
+      ),
+      body: Center(child: Text("Chats Screen")),
+    );
+  }
+}
+
+class ContactsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Contacts"),
+       backgroundColor: Color(0xFF376AED),),
+      body: Center(child: Text("Contacts Screen")),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Profile"),
+        backgroundColor: Color(0xFF376AED),
+      ),
+      body: Center(child: Text("Profile Screen")),
+    );
+  }
+}
+
+class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF376AED),
         title: Text(
-          'Chats',
+          'Settings',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         actions: [
-          addActionButton()
+          IconButton(
+              padding: EdgeInsets.symmetric(horizontal: 28),
+              onPressed: () {
+                auth_service().signOut();
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (_) => LoginPage()));
+              },
+              icon: Icon(
+                Icons.logout,
+                size: 25,
+              )),
         ],
       ),
-
-      body: Container(
-        child: ElevatedButton(
-          child: Text('PRESS TO LOGOUT'),
-          onPressed: (){
-            auth_service().signOut().then((value){
-              print("signed out bitch");
-              Navigator.pushReplacement(context, MaterialPageRoute(
-              builder: (_) => LoginPage()
-      ));
-
-            });
-            
-          },
-        ),
-      ),
+      body: Center(child: Text("Settings Screen")),
     );
   }
-
-
-  Widget addActionButton(){
-    return new Container(
-      child: 
-       IconButton(
-          padding: EdgeInsets.symmetric(horizontal: 28),
-          onPressed: (){},
-          icon: Icon(
-            Icons.search,
-            size: 30,
-          )
-       ),
-      );
-  }
-
-
-
-
-
 }
-
-

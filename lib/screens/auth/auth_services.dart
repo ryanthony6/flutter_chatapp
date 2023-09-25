@@ -68,8 +68,14 @@ class auth_service {
     }
   }
 
+  // reset password 
   resetPassword(String emailReset) async{
     await FirebaseAuth.instance.sendPasswordResetEmail(email: emailReset);
+  }
+
+  // email verification
+  emailVerif() async{
+    await FirebaseAuth.instance.currentUser?.sendEmailVerification();
   }
 
 }

@@ -1,4 +1,5 @@
 import 'package:chatapp/screens/auth/auth_services.dart';
+import 'package:chatapp/screens/auth/email_verif.dart';
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/utils/Constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,23 +26,24 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
   }
+
+  void _showAlertDialog(String message) async {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(message),
+          );
+        },
+      );
+  }
+
   // sign in with google button on click
   _handleGoogleBtn() {
     auth_service().signInWithGoogle().whenComplete(() {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => HomeScreen()));
     });
-  }
-
-  void _showAlertDialog(String message) async {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(message),
-        );
-      },
-    );
   }
 
   // sign in with email and passwd
@@ -51,13 +53,11 @@ class _LoginPageState extends State<LoginPage> {
       User? user = await auth_service().signInWithEmailAndPassword(email.text, password.text);
 
       if(user!= null){
-        print('user successfully signed in');
         Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => HomeScreen()));
       }
       else{
         _showAlertDialog('Invalid email or password');
-
       }
     }
   }
@@ -65,18 +65,18 @@ class _LoginPageState extends State<LoginPage> {
   void _handleSignUp () async{
      if (_formfield.currentState!.validate()){
       _formfield.currentState!.save();
-      print('sign up sukses');
+   
       User? user = await auth_service().signUpWithEmailAndPassword(email.text, password.text);
 
       if(user!= null){
-        print('user successfully signed up');
         Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => HomeScreen()));
+          context, MaterialPageRoute(builder: (_) => Verification()));
       }
       else{
-        print('error');
+        _showAlertDialog('Email for that user already exists');
       }
      }
+
   }
 
   @override

@@ -11,3 +11,4 @@ TextStyle whiteTextStyle = GoogleFonts.dmSans(color: whiteColor);
 TextStyle tTextStyle = GoogleFonts.dmSans(color: textColor);
 
 FontWeight bold = FontWeight.bold;
+

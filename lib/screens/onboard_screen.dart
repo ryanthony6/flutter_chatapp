@@ -13,6 +13,10 @@ class onboardScreen extends StatefulWidget {
 
 class _onboardScreenState extends State<onboardScreen> {
 
+  void initState(){
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     

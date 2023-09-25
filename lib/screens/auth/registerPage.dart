@@ -8,6 +8,9 @@ class registerScreen extends StatefulWidget {
 }
 
 class _registerScreenState extends State<registerScreen> {
+  void initState(){
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return const Placeholder();

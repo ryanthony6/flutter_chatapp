@@ -76,7 +76,12 @@ class auth_service {
 
   // email verification
   emailVerif() async{
-    await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+    try{
+      await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+    }
+    catch(e){
+      print('error');
+    }
   }
 
   // delete user

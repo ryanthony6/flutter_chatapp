@@ -1,5 +1,5 @@
 import 'package:chatapp/screens/auth/auth_services.dart';
-import 'package:chatapp/screens/auth/email_verif.dart';
+import 'package:chatapp/screens/auth/registerPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/utils/Constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,6 +33,11 @@ class _LoginPageState extends State<LoginPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(message),
+            actions: [
+              TextButton(onPressed: (){
+                Navigator.pop(context);
+              }, child: Text('Close'))
+            ],
           );
         },
       );
@@ -60,23 +65,6 @@ class _LoginPageState extends State<LoginPage> {
         _showAlertDialog('Invalid email or password');
       }
     }
-  }
-
-  void _handleSignUp () async{
-     if (_formfield.currentState!.validate()){
-      _formfield.currentState!.save();
-   
-      User? user = await auth_service().signUpWithEmailAndPassword(email.text, password.text);
-
-      if(user!= null){
-        Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => Verification()));
-      }
-      else{
-        _showAlertDialog('Email for that user already exists');
-      }
-     }
-
   }
 
   @override
@@ -116,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                             if (value!.isEmpty) {
                               return 'Please enter your E-mail';
                             }
-                            else if(!value.contains('@')){
+                            else if(!value.contains('@') || !value.contains('.')){
                               return 'Please enter a valid E-mail';
                             }
                           },
@@ -244,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: primaryButtonColor),
                           onPressed: () {
-                            _handleSignUp();
+                            _handleLoginBtn();
                           },
                           child: Text("Login",
                               style: whiteTextStyle.copyWith(
@@ -271,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
                           backgroundColor: primaryButtonColor,
                         ),
                         onPressed: () {
-                          _handleLoginBtn();
+                          _handleGoogleBtn();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -295,7 +283,8 @@ class _LoginPageState extends State<LoginPage> {
                             style: tTextStyle.copyWith(fontSize: 16)),
                         GestureDetector(
                             onTap: () {
-                              print("Sign up");
+                                Navigator.pushReplacement(
+                                  context, MaterialPageRoute(builder: (_) => registerScreen()));
                             },
                             child: Text("Sign up",
                                 style: tTextStyle.copyWith(

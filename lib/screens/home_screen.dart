@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _screens = [
     ChatsScreen(),
     ContactsScreen(),
-    ProfileScreen(),
+    SettingsScreen(),
   ];
 
   @override

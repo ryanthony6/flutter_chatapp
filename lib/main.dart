@@ -1,5 +1,7 @@
+import 'package:chatapp/Pages/Settings.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
+import 'package:chatapp/screens/auth/registerPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/screens/onboard_screen.dart';
 import 'package:chatapp/screens/splash_screen.dart';
@@ -23,7 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: splashScreen()
+      home: registerScreen()
+      
+    
     );
   }
 }

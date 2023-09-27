@@ -38,6 +38,7 @@ class _VerificationState extends State<Verification> {
   }
 
    Future checkEmailVerified() async{
+    try{
     await FirebaseAuth.instance.currentUser!.reload();
 
     if(mounted){
@@ -53,6 +54,9 @@ class _VerificationState extends State<Verification> {
           context, MaterialPageRoute(builder: (_) => HomeScreen()));
 
     }
+    }catch (e){
+      print('error');
+    }
    
   }
 
@@ -62,6 +66,11 @@ class _VerificationState extends State<Verification> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(message),
+            actions: [
+              TextButton(onPressed: (){
+                Navigator.pop(context);
+              }, child: Text('Close'))
+            ],
           );
         },
       );
@@ -69,7 +78,36 @@ class _VerificationState extends State<Verification> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        final shouldPop = await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('If you go back, you will need to sign up again. Are you sure want to go back?'),
+              actionsAlignment: MainAxisAlignment.spaceBetween,
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    auth_service().removeUser();
+                    Navigator.pop(context, true);
+                  },
+                  child: const Text('Yes'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: const Text('No'),
+                ),
+              ],
+            );
+          },
+        );
+        return shouldPop!;
+      },
+  
+    child: Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -94,6 +132,7 @@ class _VerificationState extends State<Verification> {
               child: InkWell(
                 onTap: () {
                   checkEmailVerified();
+                  _showAlertDialog('Make sure you have done the verification first');
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -119,8 +158,9 @@ class _VerificationState extends State<Verification> {
             GestureDetector(
               onTap: () {
                   auth_service().removeUser();
-                  Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => LoginPage()));
+                  Navigator.pop(context);
+                  // Navigator.pushReplacement(
+                  //   context, MaterialPageRoute(builder: (_) => LoginPage()));
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -134,6 +174,7 @@ class _VerificationState extends State<Verification> {
           ],
         ),
       ),
+    ),
     );
   }
 }

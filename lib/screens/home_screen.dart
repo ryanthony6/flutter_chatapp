@@ -1,3 +1,6 @@
+import 'package:chatapp/Pages/Chats.dart';
+import 'package:chatapp/Pages/Contacts.dart';
+import 'package:chatapp/Pages/Settings.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:flutter/material.dart';
@@ -16,18 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
     ChatsScreen(),
     ContactsScreen(),
     ProfileScreen(),
-    SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Color(0xFF376AED),
+        selectedItemColor: Color(0xFF376AED),
+        unselectedItemColor: Color(0xFF868789),
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         type: BottomNavigationBarType.fixed,
@@ -39,89 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
+            icon: Icon(Icons.chat_bubble_sharp, size: 20),
             label: "Chats",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.contact_phone),
+            icon: Icon(Icons.people, size: 20),
             label: "Contacts",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            label: "Profile",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.settings, size: 20),
             label: "Settings",
           ),
         ],
       ),
-    );
-  }
-}
-
-class ChatsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Chats"),
-        backgroundColor: Color(0xFF376AED),
-      ),
-      body: Center(child: Text("Chats Screen")),
-    );
-  }
-}
-
-class ContactsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Contacts"),
-       backgroundColor: Color(0xFF376AED),),
-      body: Center(child: Text("Contacts Screen")),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile"),
-        backgroundColor: Color(0xFF376AED),
-      ),
-      body: Center(child: Text("Profile Screen")),
-    );
-  }
-}
-
-class SettingsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF376AED),
-        title: Text(
-          'Settings',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-              padding: EdgeInsets.symmetric(horizontal: 28),
-              onPressed: () {
-                auth_service().signOut();
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => LoginPage()));
-              },
-              icon: Icon(
-                Icons.logout,
-                size: 25,
-              )),
-        ],
-      ),
-      body: Center(child: Text("Settings Screen")),
     );
   }
 }

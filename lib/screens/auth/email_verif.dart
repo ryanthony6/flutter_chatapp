@@ -32,25 +32,30 @@ class _VerificationState extends State<Verification> {
     }
   }
 
-   Future checkEmailVerified() async{
-    await FirebaseAuth.instance.currentUser!.reload();
-
-    setState(() {
-      isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-    });
-
-    if(isEmailVerified) {
-      timer?.cancel();
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => HomeScreen()));
-    }
-  }
-
   void dispose(){
     timer?.cancel();
     super.dispose();
   }
+
+   Future checkEmailVerified() async{
+    await FirebaseAuth.instance.currentUser!.reload();
+
+    if(mounted){
+      setState(() {
+        isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+      });
+    }
+
+    if(isEmailVerified) {
+      timer?.cancel();
   
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (_) => HomeScreen()));
+
+    }
+   
+  }
+
   void _showAlertDialog(String message) async {
       showDialog(
         context: context,
@@ -61,7 +66,7 @@ class _VerificationState extends State<Verification> {
         },
       );
     }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +118,7 @@ class _VerificationState extends State<Verification> {
             SizedBox(height: 20),
             GestureDetector(
               onTap: () {
+                  auth_service().removeUser();
                   Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (_) => LoginPage()));
               },

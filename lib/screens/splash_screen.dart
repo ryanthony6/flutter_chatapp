@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chatapp/screens/auth/email_verif.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/screens/onboard_screen.dart';
@@ -27,6 +28,7 @@ class _splashScreenState extends State<splashScreen>
         // user not logged ==> Login Screen
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(builder: (_) => onboardScreen()), (route) => false);
+        // user email not verified but suddenly force close 
       } else {
         // user already logged in ==> Home Screen
         Navigator.pushAndRemoveUntil(context,

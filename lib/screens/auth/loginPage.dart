@@ -213,59 +213,22 @@ class _LoginPageState extends State<LoginPage> {
                         )
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  rememberMe = !rememberMe;
-                                });
-                              },
-                              child: Container(
-                                width: 24,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  color:
-                                      rememberMe ? Colors.blue : Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    color: Colors.blue,
-                                    width: 2,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: rememberMe
-                                      ? Icon(
-                                          Icons.check,
-                                          size: 16,
-                                          color: Colors.white,
-                                        )
-                                      : null,
-                                ),
-                              ),
-                            ),
                             SizedBox(width: 8),
-                            Text(
-                              "Remember me",
-                              style: tTextStyle.copyWith(fontSize: 14),
-                            )
                           ],
                         ),
                         GestureDetector(
                             onTap: () {
-                            
                                 if (_formfield.currentState!.validate()) {
                                   _formfield.currentState!.save();
                                     auth_service().resetPassword(email.text);
                                     _showAlertDialog('Check your email');
                                 }
-
-                            
-                              
                             },
                             child: Text("Forgot Password ?",
                                 style: tTextStyle.copyWith(
@@ -329,14 +292,14 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Don't have an account yet? ",
-                            style: tTextStyle.copyWith(fontSize: 14)),
+                            style: tTextStyle.copyWith(fontSize: 16)),
                         GestureDetector(
                             onTap: () {
                               print("Sign up");
                             },
                             child: Text("Sign up",
                                 style: tTextStyle.copyWith(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     fontWeight: bold,
                                     color: Colors.blue)))
                       ],

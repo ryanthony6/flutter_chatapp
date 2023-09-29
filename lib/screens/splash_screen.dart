@@ -28,7 +28,6 @@ class _splashScreenState extends State<splashScreen>
         // user not logged ==> Login Screen
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(builder: (_) => onboardScreen()), (route) => false);
-        // user email not verified but suddenly force close 
       } else {
         // user already logged in ==> Home Screen
         Navigator.pushAndRemoveUntil(context,

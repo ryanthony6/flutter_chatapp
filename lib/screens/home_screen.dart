@@ -18,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final _screens = [
     ChatsScreen(),
     ContactsScreen(),
-    SettingsScreen(),
   ];
 
   @override
@@ -43,13 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.chat_bubble_sharp, size: 20),
             label: "Chats",
           ),
+        
           BottomNavigationBarItem(
             icon: Icon(Icons.people, size: 20),
-            label: "Contacts",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, size: 20),
-            label: "Settings",
+            label: "Contact",
           ),
         ],
       ),

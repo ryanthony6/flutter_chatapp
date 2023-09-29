@@ -1,9 +1,12 @@
+import 'package:chatapp/API/APIs.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/email_verif.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/utils/Constant.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class registerScreen extends StatefulWidget {
@@ -16,12 +19,15 @@ class registerScreen extends StatefulWidget {
 class _registerScreenState extends State<registerScreen> {
   final _formfield = GlobalKey<FormState>();
 
+
   final email = TextEditingController();
   final password = TextEditingController();
+  final name = TextEditingController();
 
   bool isPasswordVisible = false;
   bool rememberMe = false;
   User? user;
+
 
   void initState() {
     super.initState();
@@ -47,6 +53,7 @@ class _registerScreenState extends State<registerScreen> {
   }
 
   void _handleSignUp() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
     if (_formfield.currentState!.validate()) {
       _formfield.currentState!.save();
 
@@ -54,8 +61,17 @@ class _registerScreenState extends State<registerScreen> {
           .signUpWithEmailAndPassword(email.text, password.text);
 
       if (user != null) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (_) => Verification()));
+        if( (await APIs.userExists())){
+           Navigator.push(
+            context, MaterialPageRoute(builder: (_) => HomeScreen()));
+        }
+        else{
+          APIs.createUser().then((value){
+             Navigator.push(
+            context, MaterialPageRoute(builder: (_) => HomeScreen()));
+          });
+        }
+       
       } else {
         _showAlertDialog('Email for that user already exists');
       }
@@ -84,11 +100,51 @@ class _registerScreenState extends State<registerScreen> {
                         style: tTextStyle.copyWith(fontSize: 17),
                         textAlign: TextAlign.center,
                       ),
+
                       SizedBox(height: 40),
+                      
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Text("Name",
+                              style: tTextStyle.copyWith(
+                                  fontSize: 15, fontWeight: bold)),
+                          SizedBox(height: 10),
+                          TextFormField(
+                            controller: name,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your Name';
+                              }
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Enter your name",
+                              filled: true,
+                              fillColor: Color(0xFFe0e0e0),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.transparent),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15),
                           Text("E-mail",
                               style: tTextStyle.copyWith(
                                   fontSize: 15, fontWeight: bold)),

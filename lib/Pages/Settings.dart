@@ -1,5 +1,6 @@
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
+import 'package:chatapp/screens/auth/registerPage.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -22,8 +23,8 @@ class SettingsScreen extends StatelessWidget {
             Row(
               children: [
                 Icon(
-                  Icons.settings_applications,
-                  color: Colors.blue,
+                  Icons.settings,
+                  color: Color(0xFF376AED),
                 ),
                 SizedBox(width: 10),
                 Text(
@@ -43,7 +44,7 @@ class SettingsScreen extends StatelessWidget {
             SizedBox(height: 10,),
             changePasswordOption(context, 'Change Password'),
             SizedBox(height: 10,),
-            signOutOption(context, 'Sign Out')
+            deleteAccountOption(context, 'Delete Account')
           ],
         ),
       ),
@@ -52,7 +53,10 @@ class SettingsScreen extends StatelessWidget {
 
   GestureDetector editProfileOption(BuildContext context, String title) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+
+        
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
         child: Row(
@@ -129,8 +133,9 @@ class SettingsScreen extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context, MaterialPageRoute(builder: (_) => LoginPage()));
+                      auth_service().signOut();
+                      Navigator.pushAndRemoveUntil(
+                        context, MaterialPageRoute(builder: (_) => LoginPage()),(route) => false);
                     },
                     child: const Text('Yes'),
                   ),
@@ -160,4 +165,60 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
+
+
+  GestureDetector deleteAccountOption(BuildContext context, String title) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Are you sure want delete this account?")
+                  ],
+                ),
+                actionsAlignment: MainAxisAlignment.spaceBetween,
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      auth_service().removeUser();
+                      Navigator.pushAndRemoveUntil(
+                        context, MaterialPageRoute(builder: (_) => registerScreen()),(route) => false);
+                    },
+                    child: const Text('Yes'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, false);
+                    },
+                    child: const Text('No'),
+                  ),
+                ],
+              );
+            });
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[600])),
+            Icon(Icons.arrow_forward)
+          ],
+        ),
+      ),
+    );
+  }
+
+
+
+
+
 }

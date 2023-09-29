@@ -40,8 +40,13 @@ dependencies:
   # google login
   google_sign_in: ^6.1.5
 
-  # firebase auth
+  # firebase 
   firebase_auth: ^4.10.0
+  firebase_core: ^2.16.0
+  cloud_firestore: ^4.9.2
+  firebase_storage: ^11.2.7
+  image_picker: ^1.0.4
+  uuid: ^4.1.0
 
   # fonts
   google_fonts: ^6.0.0
@@ -52,8 +57,6 @@ dependencies:
   #  library for intro screen
   introduction_screen: ^3.1.11
 
-  # firebase
-  firebase_core: ^2.16.0
 
 dev_dependencies:
   flutter_test:

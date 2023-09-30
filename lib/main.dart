@@ -1,8 +1,13 @@
+import 'package:chatapp/API/APIs.dart';
+import 'package:chatapp/Pages/ChatDetails.dart';
+import 'package:chatapp/Pages/editProfile.dart';
+import 'package:chatapp/Pages/Chats.dart';
 import 'package:chatapp/Pages/Settings.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/auth/registerPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
+import 'package:chatapp/screens/newUserProfile.dart';
 import 'package:chatapp/screens/onboard_screen.dart';
 import 'package:chatapp/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen()
+      home: registerScreen()
       
     
     );

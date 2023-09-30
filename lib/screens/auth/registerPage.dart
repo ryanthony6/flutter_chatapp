@@ -1,8 +1,10 @@
 import 'package:chatapp/API/APIs.dart';
+import 'package:chatapp/Pages/editProfile.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/email_verif.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
+import 'package:chatapp/screens/newUserProfile.dart';
 import 'package:chatapp/utils/Constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +21,6 @@ class registerScreen extends StatefulWidget {
 class _registerScreenState extends State<registerScreen> {
   final _formfield = GlobalKey<FormState>();
 
-
   final email = TextEditingController();
   final password = TextEditingController();
   final name = TextEditingController();
@@ -27,7 +28,6 @@ class _registerScreenState extends State<registerScreen> {
   bool isPasswordVisible = false;
   bool rememberMe = false;
   User? user;
-
 
   void initState() {
     super.initState();
@@ -53,7 +53,8 @@ class _registerScreenState extends State<registerScreen> {
   }
 
   void _handleSignUp() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    FirebaseAuth _auth = FirebaseAuth.instance;
+    FirebaseFirestore _firestore = FirebaseFirestore.instance;
     if (_formfield.currentState!.validate()) {
       _formfield.currentState!.save();
 
@@ -61,16 +62,20 @@ class _registerScreenState extends State<registerScreen> {
           .signUpWithEmailAndPassword(email.text, password.text);
 
       if (user != null) {
-        if( (await APIs.userExists())){
-           Navigator.push(
-            context, MaterialPageRoute(builder: (_) => HomeScreen()));
-        }
-        else{
-          APIs.createUser().then((value){
-             Navigator.push(
-            context, MaterialPageRoute(builder: (_) => HomeScreen()));
-          });
-        }
+        final time = DateTime.now().millisecondsSinceEpoch.toString();
+        await _firestore.collection('users').doc(_auth.currentUser?.uid).set({
+          "name" : name.text,
+          "email" : email.text,
+          "id" : _auth.currentUser?.uid,
+          "about" : "Hello im using wa",
+          "image" : 'null',
+          "createdAt" : time,
+          "lastActive" : time,
+          "pushToken" : '',
+          // "name" : name,
+        });
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => newUserProf(user.uid)));
        
       } else {
         _showAlertDialog('Email for that user already exists');
@@ -100,9 +105,7 @@ class _registerScreenState extends State<registerScreen> {
                         style: tTextStyle.copyWith(fontSize: 17),
                         textAlign: TextAlign.center,
                       ),
-
                       SizedBox(height: 40),
-                      
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -123,13 +126,15 @@ class _registerScreenState extends State<registerScreen> {
                               filled: true,
                               fillColor: Color(0xFFe0e0e0),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),
                                 ),
@@ -164,13 +169,15 @@ class _registerScreenState extends State<registerScreen> {
                               filled: true,
                               fillColor: Color(0xFFe0e0e0),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),
                                 ),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.transparent),
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),
                                 ),
@@ -232,7 +239,8 @@ class _registerScreenState extends State<registerScreen> {
                                     suffixIcon: GestureDetector(
                                       onTap: () {
                                         setState(() {
-                                          isPasswordVisible = !isPasswordVisible;
+                                          isPasswordVisible =
+                                              !isPasswordVisible;
                                         });
                                       },
                                       child: Icon(
@@ -275,8 +283,10 @@ class _registerScreenState extends State<registerScreen> {
                               style: tTextStyle.copyWith(fontSize: 16)),
                           GestureDetector(
                               onTap: () {
-                                  Navigator.pushReplacement(
-                                    context, MaterialPageRoute(builder: (_) => LoginPage()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => LoginPage()));
                               },
                               child: Text("Sign in",
                                   style: tTextStyle.copyWith(

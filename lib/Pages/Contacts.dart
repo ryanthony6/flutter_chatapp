@@ -1,10 +1,14 @@
+import 'package:chatapp/API/APIs.dart';
 import 'package:chatapp/Pages/ChatDetails.dart';
+import 'package:chatapp/screens/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ContactsScreen extends StatefulWidget {
+
+  
   @override
   State<ContactsScreen> createState() => _ContactsScreenState();
 }
@@ -51,7 +55,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
   getClientStream() async{
     try{
     var data = await FirebaseFirestore.instance.collection('users').orderBy('name').get();
-
+       
     setState(() {
       allResults = data.docs;
     });
@@ -94,7 +98,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
               return ListTile(
                 onTap: (){
                   Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => ChatPage()));
+                    context, MaterialPageRoute(builder: (_) => HomeScreen()));
 
                 },
                 title: Text(resultLists[index]['name']),

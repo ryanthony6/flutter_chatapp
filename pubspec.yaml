@@ -45,8 +45,11 @@ dependencies:
   firebase_core: ^2.16.0
   cloud_firestore: ^4.9.2
   firebase_storage: ^11.2.7
+
+  # image
   image_picker: ^1.0.4
-  uuid: ^4.1.0
+  image_cropper: ^5.0.0
+
 
   # fonts
   google_fonts: ^6.0.0
@@ -56,6 +59,10 @@ dependencies:
 
   #  library for intro screen
   introduction_screen: ^3.1.11
+
+  # showing network images
+  cached_network_image: ^3.3.0
+
 
 
 dev_dependencies:

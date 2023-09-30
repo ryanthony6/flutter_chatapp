@@ -14,7 +14,7 @@ class ChatUser {
   late String about;
   late String name;
   late String createdAt;
-  late bool isOnline;
+  // late bool isOnline;
   late String id;
   late String lastActive;
   late String email;
@@ -38,7 +38,7 @@ class ChatUser {
     data['about'] = about;
     data['name'] = name;
     data['created_at'] = createdAt;
-    data['is_online'] = isOnline;
+    // data['is_online'] = isOnline;
     data['id'] = id;
     data['last_active'] = lastActive;
     data['email'] = email;

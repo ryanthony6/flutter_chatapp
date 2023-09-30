@@ -1,7 +1,4 @@
 import 'dart:async';
-
-import 'package:chatapp/screens/auth/email_verif.dart';
-import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
 import 'package:chatapp/screens/onboard_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';

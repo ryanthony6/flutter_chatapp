@@ -1,3 +1,4 @@
+import 'package:chatapp/API/APIs.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/registerPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
@@ -44,10 +45,19 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // sign in with google button on click
-  _handleGoogleBtn() {
-    auth_service().signInWithGoogle().whenComplete(() {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => HomeScreen()));
+  _handleGoogleBtn(){
+    auth_service().signInWithGoogle().whenComplete(() async{
+      if( (await APIs.userExists())){
+           Navigator.push(
+            context, MaterialPageRoute(builder: (_) => HomeScreen()));
+        }
+        else{
+          APIs.createUser().then((value){
+             Navigator.push(
+            context, MaterialPageRoute(builder: (_) => HomeScreen()));
+          });
+        }
+   
     });
   }
 

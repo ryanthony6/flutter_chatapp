@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chatapp/API/APIs.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
@@ -18,6 +19,7 @@ class Verification extends StatefulWidget {
 class _VerificationState extends State<Verification> {
   bool isEmailVerified = false;
   Timer? timer;
+  User user = FirebaseAuth.instance.currentUser!;
 
   void initState(){
     super.initState();
@@ -90,6 +92,7 @@ class _VerificationState extends State<Verification> {
                 TextButton(
                   onPressed: () {
                     auth_service().removeUser();
+                    APIs().deleteDocumentByField();
                     Navigator.pop(context, true);
                   },
                   child: const Text('Yes'),
@@ -157,6 +160,7 @@ class _VerificationState extends State<Verification> {
             SizedBox(height: 20),
             GestureDetector(
               onTap: () {
+                  APIs().deleteDocumentByField();
                   auth_service().removeUser();
                   Navigator.pop(context);
                   // Navigator.pushReplacement(

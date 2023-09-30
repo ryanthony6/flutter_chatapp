@@ -1,3 +1,5 @@
+import 'package:chatapp/API/APIs.dart';
+import 'package:chatapp/Pages/editProfile.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/auth/registerPage.dart';
@@ -54,8 +56,8 @@ class SettingsScreen extends StatelessWidget {
   GestureDetector editProfileOption(BuildContext context, String title) {
     return GestureDetector(
       onTap: () {
-
-        
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => ProfileScreen(user: APIs.me)));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
@@ -184,6 +186,7 @@ class SettingsScreen extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () {
+                      APIs().deleteDocumentByField;
                       auth_service().removeUser();
                       Navigator.pushAndRemoveUntil(
                         context, MaterialPageRoute(builder: (_) => registerScreen()),(route) => false);

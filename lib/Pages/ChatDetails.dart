@@ -1,6 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:chatapp/API/APIs.dart';
 import 'package:flutter/material.dart';
+import 'package:chatapp/models/chatUserModel.dart';
 
 class ChatPage extends StatefulWidget {
+  final ChatUser user;
+
+  const ChatPage({super.key, required this.user});
+
   @override
   _ChatPageState createState() => _ChatPageState();
 }
@@ -12,12 +19,12 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF376AED),
         flexibleSpace: SafeArea(
           child: Container(
             padding: EdgeInsets.only(right: 16),
             child: Row(
-              children: <Widget>[
+              children: [
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -27,102 +34,141 @@ class _ChatPageState extends State<ChatPage> {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(
-                  width: 2,
-                ),
-                CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "<https://randomuser.me/api/portraits/men/5.jpg>"),
-                  maxRadius: 20,
-                ),
-                SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Kriss Benwat",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        "Online",
-                        style: TextStyle(
-                            color: Colors.grey.shade600, fontSize: 13),
-                      ),
-                    ],
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: widget.user.image,
+                    width: 50,
+                    height: 50,
+                    errorWidget: (context, url, error) =>
+                        CircleAvatar(child: Icon(Icons.person)),
                   ),
                 ),
-                Icon(
-                  Icons.settings,
-                  color: Colors.black54,
-                ),
+
+
+                SizedBox(width: 10,),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.user.name,
+                    style:TextStyle(
+                      fontSize: 16,
+                      color: Colors.black
+                    )),
+                    SizedBox(height: 2,),
+                    const Text('Offline',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.black54
+                    ))
+                  ],
+                )
               ],
             ),
           ),
         ),
       ),
-      body: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
-              height: 60,
-              width: double.infinity,
-              color: Colors.white,
-              child: Row(
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.lightBlue,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                          hintText: "Write message...",
-                          hintStyle: TextStyle(color: Colors.black54),
-                          border: InputBorder.none),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  FloatingActionButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.send,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                    backgroundColor: Colors.blue,
-                    elevation: 0,
-                  ),
-                ],
-              ),
-            ),
+
+      body: Column(
+        children: [
+
+          Expanded(
+            child: StreamBuilder(
+            stream: APIs.getAllUsers(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                case ConnectionState.none:
+                  //return const Center(child: CircularProgressIndicator());
+          
+                case ConnectionState.active:
+                case ConnectionState.done:
+                  // final data = snapshot.data?.docs;
+                  // list = data?.map((e) => ChatUser.fromJson(e.data())).toList() ??
+                  //     [];
+          
+                  final list = ['hi'];
+                  if (list.isNotEmpty) {
+                    return ListView.builder(
+                    
+                        itemCount: list.length,
+                        padding: EdgeInsets.only(top: 10),
+                        itemBuilder: (context, index) {
+                          return Text('Messages: ${list[index]}');
+                        });
+                  }
+                  else{
+                    return Center(
+                      child: Text('Start Chatting',
+                      style: TextStyle(fontSize: 20),),
+                    );
+                  }
+              }
+            }),
           ),
+          
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * .01, horizontal:MediaQuery.of(context).size.width * .025 ),
+            child: Row(
+              children: [
+                // input field button
+                Expanded(
+                  child: Card(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: (){}, 
+                          icon: Icon
+                          (Icons.emoji_emotions),color: Color(0xFF376AED)),
+                  
+                        Expanded(child: TextField(
+                          keyboardType:TextInputType.multiline ,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            hintText: 'Chat Now!',
+                            hintStyle: TextStyle(color: Colors.black54),
+                            border: InputBorder.none
+                          ),
+                        )),
+                  
+                  
+                        IconButton(
+                          onPressed: (){}, 
+                          icon: Icon
+                          (Icons.image),color: Color(0xFF376AED)),
+                        IconButton(
+                          onPressed: (){}, 
+                          icon: Icon
+                          (Icons.camera_alt),color: Color(0xFF376AED)),
+
+
+                        SizedBox(width: 5,)
+                      ],
+                    ),
+                  ),
+                ),
+          
+          
+                // send button
+                MaterialButton(
+                  onPressed: (){},
+                  minWidth: 0,
+                  padding: EdgeInsets.only(top: 10,bottom: 10,right: 5,left: 5),
+                  shape: const CircleBorder(),
+                  child: Icon(Icons.send,size: 28, color: Colors.white,),
+                  color: Colors.red,
+                  )
+               
+                
+          
+          
+          
+          
+          
+              ],
+            ),
+          )
         ],
       ),
     );

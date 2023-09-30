@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatsScreen extends StatefulWidget {
+
   const ChatsScreen({super.key});
 
   @override
@@ -18,7 +19,18 @@ class ChatsScreen extends StatefulWidget {
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
+  
   List<ChatUser> list = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    APIs.getSelfInfo();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +91,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
         ],
       ),
       body: StreamBuilder(
-          stream: APIs.firestore.collection('users').snapshots(),
+          stream: APIs.getAllUsers(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
@@ -94,6 +106,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
                 if (list.isNotEmpty) {
                   return ListView.builder(
+                  
                       itemCount: list.length,
                       padding: EdgeInsets.only(top: 10),
                       itemBuilder: (context, index) {

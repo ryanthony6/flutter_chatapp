@@ -1,3 +1,11 @@
+Anggota 		:
+- 535220055 	Christian Fernando 
+- 535220073	Michael Pangihutan Pardomuan M. 
+- 535220074	Ryan Anthony 
+- 535220075	Vincent Callista
+- 535220097	Leonardez Flobert 
+- 535220247	Yoga Ramadhani K.
+
 Merasakan kedekatan dari kejauhan dengan CloudTalk!
 
 CloudTalk adalah platform obrolan yang inovatif yang dirancang untuk memfasilitasi komunikasi yang mudah dan menyenangkan antara pengguna. Dengan antarmuka yang sederhana dan intuitif, aplikasi ini dirancang untuk memenuhi kebutuhan berkomunikasi.

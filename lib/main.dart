@@ -1,3 +1,4 @@
+
 import 'package:chatapp/API/APIs.dart';
 import 'package:chatapp/Pages/ChatDetails.dart';
 import 'package:chatapp/Pages/editProfile.dart';
@@ -11,6 +12,7 @@ import 'package:chatapp/screens/newUserProfile.dart';
 import 'package:chatapp/screens/onboard_screen.dart';
 import 'package:chatapp/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -28,9 +30,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: splashScreen()
+
     );
   }
   

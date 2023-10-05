@@ -50,6 +50,9 @@ dependencies:
   image_picker: ^1.0.4
   image_cropper: ^5.0.0
 
+  # emoji
+  emoji_picker_flutter: ^1.6.1
+
 
   # fonts
   google_fonts: ^6.0.0

@@ -48,12 +48,12 @@ class _LoginPageState extends State<LoginPage> {
   _handleGoogleBtn(){
     auth_service().signInWithGoogle().whenComplete(() async{
       if( (await APIs.userExists())){
-           Navigator.push(
+           Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => HomeScreen()));
         }
         else{
           APIs.createUser().then((value){
-             Navigator.push(
+             Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (_) => HomeScreen()));
           });
         }

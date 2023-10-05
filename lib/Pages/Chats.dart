@@ -20,6 +20,7 @@ class ChatsScreen extends StatefulWidget {
 
 class _ChatsScreenState extends State<ChatsScreen> {
   
+  
   List<ChatUser> list = [];
 
   @override

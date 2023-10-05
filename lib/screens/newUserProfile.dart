@@ -26,42 +26,28 @@ class _newUserProfState extends State<newUserProf> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  final updateName = TextEditingController();
-  final updateStatus = TextEditingController();
   File? imageFile;
 
-  void updateNewUser() async {
-    await firestore.collection('users').doc(widget.uid).update({
-      'name': updateName.text,
-      'about': updateStatus.text,
-    });
-  }
 
   Future<void> uploadImage(File image) async {
     try {
-      // Define a reference to the Firebase Storage location where you want to store the image.
       Reference storageRef = FirebaseStorage.instance
           .ref()
           .child('profile_images')
           .child(widget.uid);
 
-      // Upload the image to Firebase Storage.
       UploadTask uploadTask = storageRef.putFile(image);
 
-      // Get the download URL of the uploaded image.
       String imageUrl = await (await uploadTask).ref.getDownloadURL();
 
-      // Update the Firestore document with the image URL.
       await firestore.collection('users').doc(widget.uid).update({
-        'profile_picture': imageUrl,
+        'image': imageUrl,
       });
 
-      // Set the imageFile variable to the new image.
       setState(() {
         imageFile = image;
       });
     } catch (error) {
-      // Handle any errors that occur during image upload.
       print("Error uploading image: $error");
     }
   }
@@ -87,130 +73,96 @@ class _newUserProfState extends State<newUserProf> {
             textAlign: TextAlign.center),
       ),
       body: Center(
-        child: Form(
-          key: _formfield,
-          child: SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.all(30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    child: SizedBox(
-                      width: 120,
-                      height: 120,
-                      child: imageFile != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(60),
-                              child: Image.file(imageFile!, fit: BoxFit.cover),
-                            )
-                          : Icon(Icons.person, size: 120, color: Colors.grey),
-                    ),
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Image Profile Picture'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ListTile(
-                                  onTap: () async {
-                                    Navigator.of(context).pop();
-                                    XFile? pickedFile = await ImagePicker()
-                                        .pickImage(source: ImageSource.gallery);
-                                    if (pickedFile != null) {
-                                      await uploadImage(File(pickedFile.path));
-                                    }
-                                  },
-                                  title: Text('Gallery'),
-                                  leading: Icon(Icons.photo_album),
-                                ),
-                                ListTile(
-                                  onTap: () async {
-                                    Navigator.of(context).pop();
-                                    XFile? pickedFile = await ImagePicker()
-                                        .pickImage(source: ImageSource.camera);
-                                    if (pickedFile != null) {
-                                      await uploadImage(File(pickedFile.path));
-                                    }
-                                  },
-                                  title: Text('Camera'),
-                                  leading: Icon(Icons.camera),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  child: SizedBox(
+                    width: 120,
+                    height: 120,
+                    child: imageFile != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(60),
+                            child: Image.file(imageFile!, fit: BoxFit.cover),
+                          )
+                        : Icon(Icons.person, size: 120, color: Colors.grey),
                   ),
-                  Text('click to edit your profile picture',
-                      style: TextStyle(color: Colors.grey, fontSize: 15)),
-                  SizedBox(height: 40),
-                  TextFormField(
-                    controller: updateName,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Name",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      filled: true,
-                      prefixIcon: Icon(Icons.people, color: Colors.blue),
-                    ),
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  SizedBox(height: 30),
-                  TextFormField(
-                    controller: updateStatus,
-                    decoration: InputDecoration(
-                      labelText: "About",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      filled: true,
-                      prefixIcon: Icon(Icons.info, color: Colors.blue),
-                    ),
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  SizedBox(height: 60),
-                  SizedBox(
-                    width: 160,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formfield.currentState!.validate()) {
-                          _formfield.currentState!.save();
-
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (_) => HomeScreen()));
-                        }
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Image Profile Picture'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ListTile(
+                                onTap: () async {
+                                  Navigator.of(context).pop();
+                                  XFile? pickedFile = await ImagePicker()
+                                      .pickImage(source: ImageSource.gallery);
+                                  if (pickedFile != null) {
+                                    await uploadImage(File(pickedFile.path));
+                                  }
+                                },
+                                title: Text('Gallery'),
+                                leading: Icon(Icons.photo_album),
+                              ),
+                              ListTile(
+                                onTap: () async {
+                                  Navigator.of(context).pop();
+                                  XFile? pickedFile = await ImagePicker()
+                                      .pickImage(source: ImageSource.camera);
+                                  if (pickedFile != null) {
+                                    await uploadImage(File(pickedFile.path));
+                                  }
+                                },
+                                title: Text('Camera'),
+                                leading: Icon(Icons.camera),
+                              ),
+                            ],
+                          ),
+                        );
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        side: BorderSide.none,
-                        shape: StadiumBorder(),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.edit),
-                          SizedBox(width: 7),
-                          Text('Update')
-                        ],
-                      ),
+                    );
+                  },
+                ),
+
+                Center(
+                  child: Text('Click the icon to change your profile picture',
+                      style: TextStyle(color: Colors.grey, fontSize: 15)),
+                ),
+                SizedBox(height: 20,),
+
+                SizedBox(
+                  width: 160,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (_) => HomeScreen()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      side: BorderSide.none,
+                      shape: StadiumBorder(),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(Icons.edit),
+                        SizedBox(width: 7),
+                        Text('Update')
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

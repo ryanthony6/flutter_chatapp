@@ -1,7 +1,11 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chatapp/API/APIs.dart';
 import 'package:chatapp/models/chatUserModel.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   final ChatUser user;
@@ -14,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final _formfield = GlobalKey<FormState>();
+  String? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         centerTitle: true,
         elevation: 0.5,
         title: Text("Edit Profile Screen",
-            style: TextStyle(color: Color(0xFFFFFFFF)), textAlign: TextAlign.center),
+            style: TextStyle(color: Color(0xFFFFFFFF)),
+            textAlign: TextAlign.center),
       ),
       body: Form(
         key: _formfield,
@@ -38,14 +44,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 120,
                   height: 120,
                   child: GestureDetector(
-                    onTap: () {},
-                    child: ClipRRect(
+                    onTap: () async{
+                       final ImagePicker picker = ImagePicker();
+
+                        // Pick an image
+                        final XFile? image = await picker.pickImage(
+                            source: ImageSource.gallery, imageQuality: 80);
+                        if (image != null) {
+                          log('Image Path: ${image.path}');
+                          setState(() {
+                            _image = image.path;
+                          });
+
+                          APIs.updateProfilePicture(File(_image!));
+                   
+                        }
+                      
+                    },
+
+                
+                    child: 
+                    _image != null
+                    ?
+                    ClipRRect(
+                      child: Image.file(File(_image!))
+                    )
+
+                  :
+                    ClipRRect(
                       child: CachedNetworkImage(
                         imageUrl: widget.user.image,
                         errorWidget: (context, url, error) =>
                             CircleAvatar(child: Icon(Icons.person)),
                       ),
-                    ),
+                    )
+
+
                   ),
                 ),
                 SizedBox(height: 20),
@@ -93,7 +127,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       if (_formfield.currentState!.validate()) {
                         _formfield.currentState!.save();
                         APIs.updateUserInfo().then((value) {
-                          SnackBar(content: Text('Profile Updated'));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                              'Profile updated successfully',
+                              style: TextStyle(color: Color(0xFFFFFFFF)),
+                              textAlign: TextAlign.center,
+                            ),
+                            backgroundColor: Colors.green,
+                          ));
                         });
                       }
                       ;
@@ -110,7 +151,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Icon(Icons.edit),
                         SizedBox(width: 7),
                         Text('Update')
-                      
                       ],
                     ),
                   ),

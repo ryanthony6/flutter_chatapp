@@ -1,12 +1,12 @@
 import 'package:chatapp/Pages/Chats.dart';
 import 'package:chatapp/Pages/Contacts.dart';
 import 'package:chatapp/Pages/Settings.dart';
+import 'package:chatapp/models/chatUserModel.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

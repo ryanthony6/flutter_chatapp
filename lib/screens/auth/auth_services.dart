@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class auth_service {
   // google sign in
   Future<UserCredential> signInWithGoogle() async {
+
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 

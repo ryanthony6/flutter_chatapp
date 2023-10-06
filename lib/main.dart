@@ -1,130 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:profilescreenn/ProfileScreen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Profile App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ProfileScreen(),
-    );
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false, home: HomeScreen());
   }
 }
 
-class ProfileScreen extends StatefulWidget {
-  @override
-  _ProfileScreenState createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController bioController = TextEditingController();
-  String selectedStatus = 'Available';
+// Main tes buat akses chatpage
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('My Profile'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {},
-          ),
-        ],
+    return MaterialApp(
+      title: 'Main',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              height: 200,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.white, Colors.grey[300]!],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("Chat App"),
+          backgroundColor: const Color.fromARGB(255, 68, 138, 255),
+        ),
+        body: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
               ),
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                    top: 80,
-                    left: MediaQuery.of(context).size.width / 2 - 60,
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundImage: AssetImage('assets/profile_image.jpg'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                labelText: 'My Name',
-              ),
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            TextField(
-              controller: bioController,
-              decoration: InputDecoration(
-                labelText: 'Your Brief Description',
-              ),
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
-            SizedBox(height: 16),
-            Text('0123-456-78910'),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Radio(
-                  value: 'Available',
-                  groupValue: selectedStatus,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedStatus = value.toString();
-                    });
-                  },
-                ),
-                Text('Available'),
-                SizedBox(width: 20),
-                Radio(
-                  value: 'Busy',
-                  groupValue: selectedStatus,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedStatus = value.toString();
-                    });
-                  },
-                ),
-                Text('Busy'),
-              ],
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                String name = nameController.text;
-                String bio = bioController.text;
-                String status = selectedStatus;
-              },
-              child: Text('Save'),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfileScreen()));
+                },
+                child: const Text('ProfileScreen'),
+              )
+            ],
+          ),
         ),
       ),
     );

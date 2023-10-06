@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Profil App',
+      title: 'Profile App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profil Saya'),
+        title: Text('My Profile'),
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             TextField(
               controller: nameController,
               decoration: InputDecoration(
-                labelText: 'Nama Anda',
+                labelText: 'My Name',
               ),
               style: TextStyle(
                 fontSize: 24,
@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             TextField(
               controller: bioController,
               decoration: InputDecoration(
-                labelText: 'Deskripsi Singkat Anda',
+                labelText: 'Your Brief Description',
               ),
               style: TextStyle(
                 fontSize: 16,
@@ -88,6 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             SizedBox(height: 16),
+            Text('0123-456-78910'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -121,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 String bio = bioController.text;
                 String status = selectedStatus;
               },
-              child: Text('Simpan'),
+              child: Text('Save'),
             ),
           ],
         ),

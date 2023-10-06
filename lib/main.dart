@@ -1,50 +1,40 @@
 
+import 'package:chatapp/API/APIs.dart';
+import 'package:chatapp/Pages/ChatDetails.dart';
+import 'package:chatapp/Pages/editProfile.dart';
+import 'package:chatapp/Pages/Chats.dart';
+import 'package:chatapp/Pages/Settings.dart';
+import 'package:chatapp/screens/auth/auth_services.dart';
+import 'package:chatapp/screens/auth/loginPage.dart';
+import 'package:chatapp/screens/auth/registerPage.dart';
+import 'package:chatapp/screens/home_screen.dart';
+import 'package:chatapp/screens/newUserProfile.dart';
+import 'package:chatapp/screens/onboard_screen.dart';
+import 'package:chatapp/screens/splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:chatapp/ChatPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen());
-  }
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
 }
 
-// Main tes buat akses chatpage
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Main',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Chat App"),
-          backgroundColor: const Color.fromARGB(255, 68, 138, 255),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ChatPage()));
-                },
-                child: const Text('ChatPage'),
-              )
-            ],
-          ),
-        ),
-      ),
-
+      debugShowCheckedModeBanner: false,
+      home: splashScreen()
     );
   }
+  
 }
+
+

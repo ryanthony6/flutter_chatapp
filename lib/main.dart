@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:chatapp/ChatPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,32 +8,46 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomeScreen());
+  }
+}
+
+// Main tes buat akses chatpage
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
+      title: 'Main',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-          appBar: AppBar(
-            title: Text("Chat App"),
-            
-            backgroundColor: Colors.blueAccent,
-          ),
-          body: Center(
-            child: 
-              TextField(
-                decoration: 
-                  InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Coba ketik',
-                  ),
-              ),
-           ),
+        appBar: AppBar(
+          title: const Text("Chat App"),
+          backgroundColor: const Color.fromARGB(255, 68, 138, 255),
         ),
+        body: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ChatPage()));
+                },
+                child: const Text('ChatPage'),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

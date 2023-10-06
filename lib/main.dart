@@ -35,9 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
-            onPressed: () {
-              // Tambahkan logika pengeditan profil di sini
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -119,12 +117,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                // Tambahkan logika penyimpanan data di sini
                 String name = nameController.text;
                 String bio = bioController.text;
                 String status = selectedStatus;
-
-                // Lakukan sesuatu dengan data yang diisi (misalnya, simpan ke database)
               },
               child: Text('Simpan'),
             ),

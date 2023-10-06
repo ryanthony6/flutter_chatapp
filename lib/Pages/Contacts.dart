@@ -90,11 +90,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
             itemCount: resultLists.length,
             itemBuilder: (context, index) {
               return ListTile(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => ChatPage(user: APIs.me)));
-                  },
                   title: Text(resultLists[index]['name']),
-                  subtitle: Text(resultLists[index]['email']),
+                  subtitle: Text(resultLists[index]['about']),
                   trailing: Icon(Icons.chat));
             }));
   }

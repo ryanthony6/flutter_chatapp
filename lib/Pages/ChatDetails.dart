@@ -83,7 +83,7 @@ class _ChatPageState extends State<ChatPage> {
                           SizedBox(
                             height: 2,
                           ),
-                          const Text('Offline',
+                          Text(widget.user.about,
                               style: TextStyle(
                                   fontSize: 13, color: Colors.black54))
                         ],
@@ -159,10 +159,13 @@ class _ChatPageState extends State<ChatPage> {
                                 controller: _textController,
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
+                                onTap: () {
+                                  if (_showEmoji)
+                                    setState(() => _showEmoji = !_showEmoji);
+                                },
                                 decoration: InputDecoration(
                                     hintText: 'Chat Now!',
-                                    hintStyle:
-                                        TextStyle(color: Colors.black54),
+                                    hintStyle: TextStyle(color: Colors.black54),
                                     border: InputBorder.none),
                               )),
 
@@ -191,10 +194,9 @@ class _ChatPageState extends State<ChatPage> {
                                     final ImagePicker picker = ImagePicker();
 
                                     // Pick an image
-                                    final XFile? image =
-                                        await picker.pickImage(
-                                            source: ImageSource.camera,
-                                            imageQuality: 70);
+                                    final XFile? image = await picker.pickImage(
+                                        source: ImageSource.camera,
+                                        imageQuality: 70);
                                     if (image != null) {
                                       log('Image Path: ${image.path}');
 

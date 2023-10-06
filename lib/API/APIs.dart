@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -6,6 +7,8 @@ import 'package:chatapp/models/message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
 
 class APIs {
   static FirebaseAuth auth = FirebaseAuth.instance;
@@ -18,6 +21,7 @@ class APIs {
 
   // current user
   static get user => auth.currentUser!;
+
 
   // delete user from database
   Future<void> deleteDocumentByField() async {

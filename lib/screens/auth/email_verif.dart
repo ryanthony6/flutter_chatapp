@@ -4,6 +4,7 @@ import 'package:chatapp/API/APIs.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/home_screen.dart';
+import 'package:chatapp/screens/newUserProfile.dart';
 import 'package:chatapp/utils/verif.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _VerificationState extends State<Verification> {
       timer?.cancel();
   
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => HomeScreen()));
+          context, MaterialPageRoute(builder: (_) => newUserProf(user.uid)));
 
     }
     }catch (e){

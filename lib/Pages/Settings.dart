@@ -21,31 +21,15 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
-            SizedBox(height: 40),
-            Row(
-              children: [
-                Icon(
-                  Icons.settings,
-                  color: Color(0xFF376AED),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  'Settings',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-            Divider(
-              height: 20,
-              thickness: 1,
-            ),
+            SizedBox(height: 10),
+            editProfileOption(context, 'Edit Profile'),
             SizedBox(
               height: 10,
             ),
-            editProfileOption(context, 'Edit Profile'),
-            SizedBox(height: 10,),
             changePasswordOption(context, 'Change Password'),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             deleteAccountOption(context, 'Delete Account')
           ],
         ),
@@ -56,8 +40,8 @@ class SettingsScreen extends StatelessWidget {
   GestureDetector editProfileOption(BuildContext context, String title) {
     return GestureDetector(
       onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) => ProfileScreen(user: APIs.me)));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => ProfileScreen(user: APIs.me)));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
@@ -127,9 +111,7 @@ class SettingsScreen extends StatelessWidget {
               return AlertDialog(
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Are you sure want to sign out?")
-                  ],
+                  children: [Text("Are you sure want to sign out?")],
                 ),
                 actionsAlignment: MainAxisAlignment.spaceBetween,
                 actions: [
@@ -137,7 +119,9 @@ class SettingsScreen extends StatelessWidget {
                     onPressed: () {
                       auth_service().signOut();
                       Navigator.pushAndRemoveUntil(
-                        context, MaterialPageRoute(builder: (_) => LoginPage()),(route) => false);
+                          context,
+                          MaterialPageRoute(builder: (_) => LoginPage()),
+                          (route) => false);
                     },
                     child: const Text('Yes'),
                   ),
@@ -167,7 +151,6 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
-
 
   GestureDetector deleteAccountOption(BuildContext context, String title) {
     return GestureDetector(
@@ -178,9 +161,7 @@ class SettingsScreen extends StatelessWidget {
               return AlertDialog(
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Are you sure want delete this account?")
-                  ],
+                  children: [Text("Are you sure want delete this account?")],
                 ),
                 actionsAlignment: MainAxisAlignment.spaceBetween,
                 actions: [
@@ -189,7 +170,9 @@ class SettingsScreen extends StatelessWidget {
                       APIs().deleteDocumentByField;
                       auth_service().removeUser();
                       Navigator.pushAndRemoveUntil(
-                        context, MaterialPageRoute(builder: (_) => registerScreen()),(route) => false);
+                          context,
+                          MaterialPageRoute(builder: (_) => registerScreen()),
+                          (route) => false);
                     },
                     child: const Text('Yes'),
                   ),
@@ -219,9 +202,4 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
-
-
-
-
-
 }

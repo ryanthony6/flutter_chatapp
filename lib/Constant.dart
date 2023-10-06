@@ -1,2 +1,0 @@
-
-FontWeight bold = FontWeight.bold;

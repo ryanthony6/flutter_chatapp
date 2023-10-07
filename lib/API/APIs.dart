@@ -24,7 +24,7 @@ class APIs {
 
 
   // delete user from database
-  Future<void> deleteDocumentByField() async {
+  static Future<void> deleteDocumentByField() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('users')
         .where('id', isEqualTo: user.uid)

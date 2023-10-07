@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class auth_service {
   // google sign in
   Future<UserCredential> signInWithGoogle() async {
-    
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -40,7 +39,6 @@ class auth_service {
         password: password,
       );
       return userCredential.user;
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -89,10 +87,9 @@ class auth_service {
 
   // delete user
   removeUser() async {
-    try{
-    await FirebaseAuth.instance.currentUser?.delete();
-    }
-    catch(e){
+    try {
+      await FirebaseAuth.instance.currentUser?.delete();
+    } catch (e) {
       print('error');
     }
   }

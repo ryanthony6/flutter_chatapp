@@ -4,15 +4,24 @@ import 'package:chatapp/models/chatUserModel.dart';
 import 'package:chatapp/screens/auth/auth_services.dart';
 import 'package:chatapp/screens/auth/loginPage.dart';
 import 'package:chatapp/screens/auth/registerPage.dart';
+import 'package:chatapp/screens/splash_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   final ChatUser user;
 
   const SettingsScreen({super.key, required this.user});
 
   @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -82,7 +91,7 @@ class SettingsScreen extends StatelessWidget {
                 actions: [
                   TextButton(
                       onPressed: () {
-                        auth_service().resetPassword(user.email);
+                        auth_service().resetPassword(widget.user.email);
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (_) => LoginPage()));
                       },
@@ -123,11 +132,13 @@ class SettingsScreen extends StatelessWidget {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      APIs().deleteDocumentByField;
-                      auth_service().removeUser();
+                      FirebaseAuth.instance.currentUser?.delete();
+                      FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).delete();
+                      APIs.deleteDocumentByField;
+                      
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (_) => registerScreen()),
+                          MaterialPageRoute(builder: (_) => splashScreen()),
                           (route) => false);
                     },
                     child: const Text('Yes'),

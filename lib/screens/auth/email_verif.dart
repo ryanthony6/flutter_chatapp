@@ -93,7 +93,7 @@ class _VerificationState extends State<Verification> {
                 TextButton(
                   onPressed: () {
                     auth_service().removeUser();
-                    APIs().deleteDocumentByField();
+                    APIs.deleteDocumentByField();
                     Navigator.pop(context, true);
                   },
                   child: const Text('Yes'),
@@ -161,7 +161,7 @@ class _VerificationState extends State<Verification> {
             SizedBox(height: 20),
             GestureDetector(
               onTap: () {
-                  APIs().deleteDocumentByField();
+                  APIs.deleteDocumentByField();
                   auth_service().removeUser();
                   Navigator.pop(context);
                   // Navigator.pushReplacement(

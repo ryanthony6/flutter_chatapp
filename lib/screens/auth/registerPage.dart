@@ -67,7 +67,7 @@ class _registerScreenState extends State<registerScreen> {
           "name": name.text,
           "email": email.text,
           "id": _auth.currentUser?.uid,
-          "about": "Hello im using wa",
+          "about": "Hello! Nice to meet you",
           "image": 'null',
           "createdAt": time,
           "lastActive": time,

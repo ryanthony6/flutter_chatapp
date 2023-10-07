@@ -24,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Color(0xFF376AED),
         centerTitle: true,
         elevation: 0.5,
         title: Text("Edit Profile Screen",
@@ -44,8 +44,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 120,
                   height: 120,
                   child: GestureDetector(
-                    onTap: () async{
-                       final ImagePicker picker = ImagePicker();
+                      onTap: () async {
+                        final ImagePicker picker = ImagePicker();
 
                         // Pick an image
                         final XFile? image = await picker.pickImage(
@@ -57,30 +57,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           });
 
                           APIs.updateProfilePicture(File(_image!));
-                   
                         }
-                      
-                    },
-
-                
-                    child: 
-                    _image != null
-                    ?
-                    ClipRRect(
-                      child: Image.file(File(_image!))
-                    )
-
-                  :
-                    ClipRRect(
-                      child: CachedNetworkImage(
-                        imageUrl: widget.user.image,
-                        errorWidget: (context, url, error) =>
-                            CircleAvatar(child: Icon(Icons.person)),
-                      ),
-                    )
-
-
-                  ),
+                      },
+                      child: _image != null
+                          ? ClipRRect(
+                              child: Image.file(
+                              File(_image!),
+                              fit: BoxFit.cover,
+                            ))
+                          : ClipRRect(
+                              child: CachedNetworkImage(
+                                imageUrl: widget.user.image,
+                                errorWidget: (context, url, error) =>
+                                    CircleAvatar(child: Icon(Icons.person)),
+                              ),
+                            )),
                 ),
                 SizedBox(height: 20),
                 Text(widget.user.email,

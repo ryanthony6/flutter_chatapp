@@ -65,7 +65,7 @@ class _newUserProfState extends State<newUserProf> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Color(0xFF376AED),
         centerTitle: true,
         elevation: 0.5,
         title: Text("Setup your profile",
@@ -140,7 +140,7 @@ class _newUserProfState extends State<newUserProf> {
 
                 SizedBox(
                   width: 160,
-                  height: 50,
+                  height: 70,
                   child: ElevatedButton(
                     onPressed: () {
                         Navigator.pushReplacement(context,

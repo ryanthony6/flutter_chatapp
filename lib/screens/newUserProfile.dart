@@ -28,7 +28,6 @@ class _newUserProfState extends State<newUserProf> {
 
   File? imageFile;
 
-
   Future<void> uploadImage(File image) async {
     try {
       Reference storageRef = FirebaseStorage.instance
@@ -131,20 +130,23 @@ class _newUserProfState extends State<newUserProf> {
                     );
                   },
                 ),
-
+                SizedBox(
+                  height: 20,
+                ),
                 Center(
                   child: Text('Click the icon to change your profile picture',
                       style: TextStyle(color: Colors.grey, fontSize: 15)),
                 ),
-                SizedBox(height: 20,),
-
+                SizedBox(
+                  height: 20,
+                ),
                 SizedBox(
                   width: 160,
-                  height: 70,
+                  height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) => HomeScreen()));
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => HomeScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

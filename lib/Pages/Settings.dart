@@ -95,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (_) => LoginPage()));
                       },
-                      child: Text('Close'))
+                      child: Text('Click to proceed'))
                 ],
               );
             });

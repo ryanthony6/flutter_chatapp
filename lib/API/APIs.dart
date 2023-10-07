@@ -61,8 +61,8 @@ class APIs {
         about: "Hello! Nice to meet you",
         image: user.photoURL.toString(),
         createdAt: time,
-        lastActive: time,
-        pushToken: '');
+        lastActive: time,);
+        // pushToken: '');
 
     return (await firestore
         .collection('users')
@@ -102,8 +102,6 @@ class APIs {
         .doc(user.uid)
         .update({'image': me.image});
   }
-
-  // chatscreen APIs
 
   // conversation id
   static String getConversationID(String id) => user.uid.hashCode <= id.hashCode

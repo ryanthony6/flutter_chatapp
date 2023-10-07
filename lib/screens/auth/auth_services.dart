@@ -89,6 +89,11 @@ class auth_service {
 
   // delete user
   removeUser() async {
+    try{
     await FirebaseAuth.instance.currentUser?.delete();
+    }
+    catch(e){
+      print('error');
+    }
   }
 }

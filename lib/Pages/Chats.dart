@@ -56,7 +56,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
           }, onSelected: (value) {
             if (value == 0) {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => SettingsScreen()));
+                  context, MaterialPageRoute(builder: (_) => SettingsScreen(user: APIs.me)));
             } else if (value == 1) {
               showDialog(
                   context: context,
